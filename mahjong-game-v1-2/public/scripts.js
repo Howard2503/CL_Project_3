@@ -1,6 +1,7 @@
 const socket = io();
 
 let playerInfo = null; // 存储当前玩家信息
+let playerRole = null; // 存储当前玩家角色
 
 // 获取棋盘和麻将牌区域
 const board = document.getElementById("game-board");
@@ -86,7 +87,7 @@ function handleDrop(event) {
   const tile = event.dataTransfer.getData("tile");
   const index = parseInt(event.target.dataset.index);
 
-  if (tile && !event.target.textContent) {
+  if (tile && !event.target.textContent && playerRole != "Spectator") {
     // 本地更新
     updateTile(index, tile, playerInfo.id);
 
