@@ -21,66 +21,7 @@ let boardState = Array(100).fill(null); // 示例：9格棋盘
 io.on("connection", (socket) => {
   console.log(`Client connected: ${socket.id}`);
 
-  // 分配玩家角色
-  // let playerRole = `Player ${players.length + 1}`;
   let playerRole = "Spectator";
-  // if (players.length < 2) {
-  //   players.push({ id: socket.id, role: playerRole });
-  // } else {
-  //   playerRole = "Spectator"; // 超过两名玩家为观战者
-  // }
-
-  // if (players[0]) {
-  //   if (players[1]) {
-  //     players.push({ id: socket.id, color: getRandomColor(), role: playerRole });
-  //   } else if (players[0].id == "Player 2") {
-  //     playerRole = "Player 1";
-  //     players.push({ id: socket.id, color: getRandomColor(), role: playerRole });
-  //     console.log(`Assigned player: ${players[1].id}, color: ${players[1].color}, role: ${players[1].role}`);
-  //   } else {
-  //     playerRole = "Player 2";
-  //     players.push({ id: socket.id, color: getRandomColor(), role: playerRole });
-  //     console.log(`Assigned player: ${players[1].id}, color: ${players[1].color}, role: ${players[1].role}`);
-  //   }
-  // } else {
-  //   playerRole = "Player 1";
-  //   players.push({ id: socket.id, color: getRandomColor(), role: playerRole });
-  //   console.log(`Assigned player: ${players[0].id}, color: ${players[0].color}, role: ${players[0].role}`);
-  //   // console.log(`Assigned player: ${players[1].id}, color: ${players[1].color}, role: ${players[1].role}`);
-  // }
-
-  // if (players[0]) {
-  //   if (players[1]) {
-  //     //分配观众
-  //     playerRole = "Spectator";
-  //     players.push({ id: socket.id, color: getRandomColor(), role: playerRole });
-  //     for (let i = 0; i < players.length; i++) {
-  //       console.log(`Assigned player: ${players[i].id}, color: ${players[i].color}, role: ${players[i].role}`);
-  //     }
-  //   } else {
-  //     //分配玩家2
-  //     playerRole = "Player_2";
-  //     players.push({ id: socket.id, color: getRandomColor(), role: playerRole });
-  //     for (let i = 0; i < players.length; i++) {
-  //       console.log(`Assigned player: ${players[i].id}, color: ${players[i].color}, role: ${players[i].role}`);
-  //     }
-
-  //   }
-  // } else {
-  //   //分配玩家1
-  //   playerRole = "Player_1";
-  //   players.push({ id: socket.id, color: getRandomColor(), role: playerRole });
-  //   for (let i = 0; i < players.length; i++) {
-  //     console.log(`Assigned player: ${players[i].id}, color: ${players[i].color}, role: ${players[i].role}`);
-  //   }
-  // }
-
-
-
-
-  // players.push({ id: socket.id, role: playerRole });
-
-  // console.log(`Assigned role: ${playerRole}`);
 
   // 分配玩家 ID（可以用颜色区分）
   const playerId = socket.id; // 使用 socket ID 作为玩家 ID
@@ -98,22 +39,6 @@ io.on("connection", (socket) => {
     }
     i++;
   }
-  // for (let i = 0; i < players.length; i++) {
-  //   players[i].role = "Spectator";
-  // }
-  // if (players[0]) {
-  //   players[0].role = "Player_1"
-  // }
-  // if (players[1]) {
-  //   players[1].role = "Player_2"
-  // }
-  // for (let i = 0; i < players.length; i++) {
-  //   console.log(`Assigned player: ${players[i].id}, color: ${players[i].color}, role: ${players[i].role}`);
-  // }
-  // players.push({ id: playerId, color: getRandomColor(), role: playerRole }); // 随机颜色
-  // console.log(`Player 1:${players[0].role}`);
-  // console.log(`Players: ${players}`);
-  // console.log(`Assigned player: ${playerId}, color: ${players[socket.id].color}, role: ${players[socket.id].role}`);
 
   // 发送初始棋盘状态和玩家信息
   socket.emit("initBoard", { boardState, playerInfo: players[socket.id] });
@@ -139,35 +64,19 @@ io.on("connection", (socket) => {
         if (i == 0) {
           players[key].role = "Player_1";
           io.to(players[key].id).emit("initBoard", { boardState, playerInfo: players[key] });
-          // socket.broadcast.emit("initBoard", { boardState, playerInfo: players[key] });
         }
         if (i == 1) {
           players[key].role = "Player_2";
           io.to(players[key].id).emit("initBoard", { boardState, playerInfo: players[key] });
-          // socket.broadcast.emit("initBoard", { boardState, playerInfo: players[key] });
         }
         if (players.hasOwnProperty(key)) {
           console.log(`Key: ${key} PlayerID: ${players[key].id} PlayerRole: ${players[key].role} i: ${i}`);
         }
         i++;
-        // socket.broadcast.emit("initBoard", { boardState, playerInfo: players[key] });
       }
     } else {
       delete players[socket.id];
     }
-    // players = players.filter((player) => player.id !== socket.id);
-    // for (let i = 0; i < players.length; i++) {
-    //   players[i].role = "Spectator";
-    // }
-    // if (players[0]) {
-    //   players[0].role = "Player_1"
-    // }
-    // if (players[1]) {
-    //   players[1].role = "Player_2"
-    // }
-    // for (let i = 0; i < players.length; i++) {
-    //   console.log(`Assigned player: ${players[i].id}, color: ${players[i].color}, role: ${players[i].role}`);
-    // }
   });
 });
 

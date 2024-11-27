@@ -8,8 +8,6 @@ const mahjongTiles = document.getElementById("mahjong-tiles");
 
 // 接收初始数据（棋盘状态和玩家信息）
 socket.on("initBoard", ({ boardState, playerInfo: info }) => {
-  if (!playerInfo) {
-  }
   playerInfo = info; // 保存当前玩家信息
 
   console.log("Player Info:", playerInfo); // 调试信息
