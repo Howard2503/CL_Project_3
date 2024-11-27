@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahjong Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <h1>Mahjong Game</h1>
+  <div id="mahjong-tiles">
+    <!-- 可拖拽的麻将牌 -->
+    <div class="tile draggable" draggable="true" data-tile="1_tiao">
+      <img src="images/1_tiao.png" alt="1 Tiao">
+    </div>
+    <div class="tile draggable" draggable="true" data-tile="1_tong">
+      <img src="images/1_tong.png" alt="1 Tong">
+    </div>
+    <div class="tile draggable" draggable="true" data-tile="1_wan">
+      <img src="images/1_wan.png" alt="1 Wan">
+    </div>
+    <!-- <div class="tile draggable" draggable="true" data-tile="🀄">🀄</div>
+    <div class="tile draggable" draggable="true" data-tile="🀅">🀅</div>
+    <div class="tile draggable" draggable="true" data-tile="🀆">🀆</div> -->
+  </div>
+  <div id="game-board"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="scripts.js"></script>
+</body>
+
+</html>
+
+<!-- <body>
+  <h1>Mahjong Game</h1>
+  <div id="mahjong-tiles">
+    <div class="tile draggable" draggable="true" data-tile="🀄">🀄</div>
+    <div class="tile draggable" draggable="true" data-tile="🀅">🀅</div>
+    <div class="tile draggable" draggable="true" data-tile="🀆">🀆</div>
+  </div>
+  <div id="game-board"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="scripts.js"></script>
+</body> -->
