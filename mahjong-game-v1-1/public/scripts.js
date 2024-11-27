@@ -85,5 +85,5 @@ function handleDrop(event) {
 
 // 获取玩家颜色（需要后端发送玩家 ID）
 function getPlayerColor(playerId) {
-  return playerId === playerInfo.id ? playerInfo.color : "gray"; // 当前玩家为分配颜色，其他玩家为灰色
+  return playerId === playerInfo.id ? playerInfo.color : "red"; // 当前玩家为分配颜色，其他玩家为灰色
 }

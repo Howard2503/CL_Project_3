@@ -54,5 +54,6 @@ server.listen(PORT, () => {
 // 获取随机颜色
 function getRandomColor() {
   const colors = ["red", "blue"];
-  return colors[Math.floor(Math.random() * colors.length)];
+  // return colors[Math.floor(Math.random() * colors.length)];
+  return "blue";
 }
