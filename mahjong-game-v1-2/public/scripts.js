@@ -5,10 +5,16 @@ let playerInfo = null; // 存储当前玩家信息
 // 获取棋盘和麻将牌区域
 const board = document.getElementById("game-board");
 const mahjongTiles = document.getElementById("mahjong-tiles");
+const player = document.getElementById("player-role");
 
 // 接收初始数据（棋盘状态和玩家信息）
 socket.on("initBoard", ({ boardState, playerInfo: info }) => {
   playerInfo = info; // 保存当前玩家信息
+  playerRole = playerInfo.role; // 保存玩家角色
+  console.log("Player Role:", playerRole); // 调试信息
+
+  // 显示玩家角色
+  displayPlayerRole(playerRole);
 
   console.log("Player Info:", playerInfo); // 调试信息
   renderBoard(boardState);
@@ -18,6 +24,11 @@ socket.on("initBoard", ({ boardState, playerInfo: info }) => {
 socket.on("updateBoard", ({ index, tile, playerId }) => {
   updateTile(index, tile, playerId);
 });
+
+// 显示玩家角色
+function displayPlayerRole(role) {
+  player.textContent = `You are: ${role}`;
+}
 
 function renderBoard(boardState) {
   board.innerHTML = ""; // 清空棋盘
