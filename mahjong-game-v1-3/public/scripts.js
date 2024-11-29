@@ -1,7 +1,6 @@
 const socket = io();
 
 let playerInfo = null; // 存储当前玩家信息
-// let playerRole = null; // 存储当前玩家角色
 
 // 获取棋盘和麻将牌区域
 const board = document.getElementById("game-board");
@@ -11,8 +10,6 @@ const player = document.getElementById("player-role");
 // 接收初始数据（棋盘状态和玩家信息）
 socket.on("initBoard", ({ boardState, playerInfo: info }) => {
   playerInfo = info; // 保存当前玩家信息
-  // playerRole = playerInfo.role; // 保存玩家角色
-  // console.log("Player Role:", playerRole); // 调试信息
 
   // 显示玩家角色
   displayPlayerRole(playerInfo.role);
@@ -23,7 +20,6 @@ socket.on("initBoard", ({ boardState, playerInfo: info }) => {
 
 // 监听棋盘更新事件
 socket.on("updateBoard", ({ index, tile, playerRole }) => {
-  // updateTile(index, tile, playerId);
   updateTileByRole(index, tile, playerRole);
 });
 
@@ -54,7 +50,6 @@ function renderBoard(boardState) {
       tileElement.appendChild(img);
 
       // 根据玩家信息设置样式
-      // tileElement.style.borderColor = getPlayerColor(playerId);
       tileElement.style.borderColor = getPlayerColorByRole(playerRole);
     }
 
@@ -76,7 +71,6 @@ function updateTile(index, tile, playerId) {
 
     // 使用颜色区分不同玩家
     tileElement.style.borderColor = getPlayerColor(playerId);
-    // tileElement.cell.color = getPlayerColor(playerId);
   }
 }
 
@@ -91,7 +85,6 @@ function updateTileByRole(index, tile, playerRole) {
 
     // 使用颜色区分不同玩家
     tileElement.style.borderColor = getPlayerColorByRole(playerRole);
-    // tileElement.cell.color = getPlayerColor(playerId);
   }
 }
 
@@ -114,7 +107,6 @@ function handleDrop(event) {
 
   if (tile && !event.target.textContent && playerInfo.role != "Spectator") {
     // 本地更新
-    // updateTile(index, tile, playerInfo.id);
     updateTileByRole(index, tile, playerInfo.role);
 
     // 通知服务器
