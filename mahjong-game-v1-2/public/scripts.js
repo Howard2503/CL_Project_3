@@ -67,6 +67,7 @@ function updateTile(index, tile, playerId) {
 
     // 使用颜色区分不同玩家
     tileElement.style.borderColor = getPlayerColor(playerId);
+    // tileElement.cell.color = getPlayerColor(playerId);
   }
 }
 
