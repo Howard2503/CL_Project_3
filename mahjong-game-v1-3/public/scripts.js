@@ -41,6 +41,11 @@ function renderBoard(boardState) {
     const tileElement = document.createElement("div");
     tileElement.className = "tile";
     tileElement.dataset.index = index;
+    if (index < 50) {
+      tileElement.style.backgroundColor = "Pink";
+    } else {
+      tileElement.style.backgroundColor = "LightBlue";
+    }
 
     if (cell) {
       const { tile, playerRole } = cell; // 棋子和玩家信息
@@ -106,11 +111,22 @@ function handleDrop(event) {
   const index = parseInt(event.target.dataset.index);
 
   if (tile && !event.target.textContent && playerInfo.role != "Spectator") {
-    // 本地更新
-    updateTileByRole(index, tile, playerInfo.role);
+    if (index < 50 && playerInfo.role == "Player_2") {
 
-    // 通知服务器
-    socket.emit("moveTile", { index, tile, playerRole: playerInfo.role });
+      // 本地更新
+      updateTileByRole(index, tile, playerInfo.role);
+
+      // 通知服务器
+      socket.emit("moveTile", { index, tile, playerRole: playerInfo.role });
+    }
+    if (index >= 50 && playerInfo.role == "Player_1") {
+
+      // 本地更新
+      updateTileByRole(index, tile, playerInfo.role);
+
+      // 通知服务器
+      socket.emit("moveTile", { index, tile, playerRole: playerInfo.role });
+    }
   }
 }
 
