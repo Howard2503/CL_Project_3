@@ -1,5 +1,10 @@
 const socket = io();
 
+const audio = document.getElementById('bgMusic');
+const musicFiles =['music/song_1.mp3','music/song_2.mp3','music/song_3.mp3']
+
+const playButton=document.getElementById('playButton');
+
 let playerInfo = null; // 存储当前玩家信息
 
 // 获取棋盘和麻将牌区域
@@ -14,6 +19,7 @@ socket.on("initBoard", ({ boardState, playerInfo: info }) => {
   // 显示玩家角色
   displayPlayerRole(playerInfo.role);
 
+
   console.log("Player Info:", playerInfo); // 调试信息
   renderBoard(boardState);
 });
@@ -22,6 +28,29 @@ socket.on("initBoard", ({ boardState, playerInfo: info }) => {
 socket.on("updateBoard", ({ index, tile, playerRole }) => {
   updateTileByRole(index, tile, playerRole);
 });
+
+function playRandomMusic(){
+  const randomIndex = Math.floor(Math.random()*musicFiles.length);
+  audio.src = musicFiles[randomIndex];
+}
+
+playButton.addEventListener('click',()=>{
+  playRandomMusic();
+  audio.play();
+})
+
+
+//bgm load
+function preload(){
+  song1=loadSound("music/song_1.mp3");
+  song2=loadSound("music/song_2.mp3");
+  song3=loadSound("music/song_3.mp3");
+  console.log("song loaded!");
+}
+
+function setup(){
+  
+}
 
 // 显示玩家角色
 function displayPlayerRole(role) {
