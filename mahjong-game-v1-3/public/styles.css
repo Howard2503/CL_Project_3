@@ -27,7 +27,7 @@ body {
   margin-bottom: 10px;
   padding: 10px;
   background-color: #f9f9f9;
-  border: 2px solid #ccc;
+  border: 6px solid #ccc;
   text-align: center;
 }
 
@@ -52,6 +52,12 @@ body {
 
 .tile.draggable {
   cursor: grab;
+}
+
+#volumeSlider {
+  width: 200px; /* 设置滑动条宽度 */
+  height: 5px; /* 设置滑动条高度 */
+  background-color: #ccc; /* 设置滑动条背景颜色 */
 }
 
 .tile:empty:hover {
