@@ -4,9 +4,17 @@ const audio = document.getElementById('bgMusic');
 const musicFiles =['music/song_1.mp3','music/song_2.mp3','music/song_3.mp3']
 const soundFiles =['SFX/SFX_Drag1.wav','SFX/SFX_Drag2.mp3']
 const sounds =[];
+const volumeSlider =document.getElementById('volumeSlider');
 
 const playButton=document.getElementById('playButton');
 let isMusicPlaying = false; //add var去记录音乐是否正在播放.
+
+//给滑动条增加事件, 适时调整音量
+volumeSlider.addEventListener('input', () => {
+  const volume = volumeSlider.value; // 获取滑动条当前的值，即音量大小
+  audio.volume = volume; // 设置背景音乐的音量
+});
+
 
 let playerInfo = null; // 存储当前玩家信息
 
@@ -73,9 +81,9 @@ function preload(){
 // 显示玩家角色
 function displayPlayerRole(role) {
   if (role == "Player_1") {
-    player.style.borderColor = "blue";
+    player.style.borderColor = "LightBlue";
   } else if (role == "Player_2") {
-    player.style.borderColor = "red";
+    player.style.borderColor = "Pink";
   } else {
     player.style.borderColor = "grey";
   }
