@@ -1,12 +1,12 @@
 const socket = io();
 
 const audio = document.getElementById('bgMusic');
-const musicFiles =['music/song_1.mp3','music/song_2.mp3','music/song_3.mp3']
-const soundFiles =['SFX/SFX_Drag1.wav','SFX/SFX_Drag2.mp3']
-const sounds =[];
-const volumeSlider =document.getElementById('volumeSlider');
+const musicFiles = ['music/song_1.mp3', 'music/song_2.mp3', 'music/song_3.mp3']
+const soundFiles = ['SFX/SFX_Drag1.wav', 'SFX/SFX_Drag2.mp3']
+const sounds = [];
+const volumeSlider = document.getElementById('volumeSlider');
 
-const playButton=document.getElementById('playButton');
+const playButton = document.getElementById('playButton');
 let isMusicPlaying = false; //add var去记录音乐是否正在播放.
 
 //给滑动条增加事件, 适时调整音量
@@ -30,7 +30,6 @@ socket.on("initBoard", ({ boardState, playerInfo: info }) => {
   // 显示玩家角色
   displayPlayerRole(playerInfo.role);
 
-
   console.log("Player Info:", playerInfo); // 调试信息
   renderBoard(boardState);
 });
@@ -41,42 +40,40 @@ socket.on("updateBoard", ({ index, tile, playerRole }) => {
 });
 
 //播放背景音乐
-function playRandomMusic(){
-  const randomIndex = Math.floor(Math.random()*musicFiles.length);
+function playRandomMusic() {
+  const randomIndex = Math.floor(Math.random() * musicFiles.length);
   audio.src = musicFiles[randomIndex];
 }
 
-playButton.addEventListener('click',()=>{
-  if(!isMusicPlaying){
+playButton.addEventListener('click', () => {
+  if (!isMusicPlaying) {
     playRandomMusic();
     audio.play();
     isMusicPlaying = true; //标记已经开始播放音乐
     playButton.textContent = "Next Song";//替换按钮文本
-  }else{
+  } else {
     playRandomMusic();
     audio.play();
   }
-
 })
 
-function loadSounds(){
+function loadSounds() {
   soundFiles.forEach((file) => {
     const audio = new Audio(file);
     sounds.push(audio);
-    }); 
+  });
 }
+
 loadSounds();
 
-
 //bgm load
-function preload(){
-  song1=loadSound("music/song_1.mp3");
-  song2=loadSound("music/song_2.mp3");
-  song3=loadSound("music/song_3.mp3");
+function preload() {
+  song1 = loadSound("music/song_1.mp3");
+  song2 = loadSound("music/song_2.mp3");
+  song3 = loadSound("music/song_3.mp3");
 
   console.log("song loaded!");
 }
-
 
 // 显示玩家角色
 function displayPlayerRole(role) {
@@ -120,19 +117,19 @@ function renderBoard(boardState) {
 }
 
 // 更新棋盘单个格子的内容（包含玩家区分）
-function updateTile(index, tile, playerId) {
-  const tileElement = document.querySelector(`[data-index="${index}"]`);
-  if (tileElement) {
-    tileElement.innerHTML = ""; // 清空格子内容
-    const img = document.createElement("img");
-    img.src = `images/${tile}.png`;
-    img.alt = tile;
-    tileElement.appendChild(img);
+// function updateTile(index, tile, playerId) {
+//   const tileElement = document.querySelector(`[data-index="${index}"]`);
+//   if (tileElement) {
+//     tileElement.innerHTML = ""; // 清空格子内容
+//     const img = document.createElement("img");
+//     img.src = `images/${tile}.png`;
+//     img.alt = tile;
+//     tileElement.appendChild(img);
 
-    // 使用颜色区分不同玩家
-    tileElement.style.borderColor = getPlayerColor(playerId);
-  }
-}
+//     // 使用颜色区分不同玩家
+//     tileElement.style.borderColor = getPlayerColor(playerId);
+//   }
+// }
 
 function updateTileByRole(index, tile, playerRole) {
   const tileElement = document.querySelector(`[data-index="${index}"]`);
@@ -165,8 +162,6 @@ function handleDrop(event) {
   const tile = event.dataTransfer.getData("tile");
   const index = parseInt(event.target.dataset.index);
 
-
-
   if (tile && !event.target.textContent && playerInfo.role != "Spectator") {
     if (index < 50 && playerInfo.role == "Player_2") {
 
@@ -194,9 +189,9 @@ function handleDrop(event) {
 }
 
 // 获取玩家颜色（需要后端发送玩家 ID）
-function getPlayerColor(playerId) {
-  return playerId === playerInfo.id ? playerInfo.color : "red"; // 当前玩家为蓝色，其他玩家为红色
-}
+// function getPlayerColor(playerId) {
+//   return playerId === playerInfo.id ? playerInfo.color : "red"; // 当前玩家为蓝色，其他玩家为红色
+// }
 
 function getPlayerColorByRole(playerRole) {
   if (playerRole == "Player_1") {
