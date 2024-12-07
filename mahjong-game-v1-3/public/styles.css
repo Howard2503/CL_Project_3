@@ -1,13 +1,93 @@
-body {
+body{
+  background-color: #f0f0f0;
+}
+
+.Game{
+  display: block;
+  height: 100%;
+  width:100%;
+  padding: 30px;
+  
+}
+
+.MainGame {
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f0f0f0;
+  height: 100%;
+  width:100%;
+
 }
+
+.audioSetting{
+display:flex;
+flex-direction: column;
+justify-content: flex-start;
+}
+
+
+.overlay {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  z-index: -1;
+  width:100%;
+  justify-content: center;
+}
+
+
+.leftIns{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top:100px;
+  width:200px;
+  padding:50px;
+  right:300px;
+}
+
+.rightIns{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  left:200px;
+}
+
+.rightInstag{
+  top:100px;
+  position: relative;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#rightInstag2{
+top:140px;
+}
+
+
+#pattern{
+  position:relative;
+  top:250px;
+  left:210px;
+}
+
+.inst2{
+  width:200px;
+}
+
+
+
+h3,h4{
+  width:200px;
+}
+
+
+
+
 
 #mahjong-tiles {
   display: flex;
@@ -19,6 +99,7 @@ body {
   display: grid;
   grid-template-columns: repeat(8, 50px);
   grid-gap: 10px;
+
 }
 
 #player-role {
@@ -55,20 +136,21 @@ body {
 }
 
 #volumeSlider {
-  width: 200px; /* 设置滑动条宽度 */
-  height: 5px; /* 设置滑动条高度 */
+  width: 180px; /* 设置滑动条宽度 */
+  height: 8px; /* 设置滑动条高度 */
   background-color: #ccc; /* 设置滑动条背景颜色 */
+
+}
+
+#audioButton{
+
+}
+
+#ReferenceButton{
+  width: 180px;
+
 }
 
 .tile:empty:hover {
   background-color: #e0e0e0;
 }
-
-/* 高亮当前玩家棋子 */
-/* .tile[style*="border-color: red"] {
-  background-color: rgba(255, 0, 0, 1);
-}
-
-.tile[style*="border-color: blue"] {
-  background-color: rgba(0, 0, 255, 1);
-} */
