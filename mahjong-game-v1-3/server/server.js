@@ -16,7 +16,7 @@ let users = []; // 存储玩家信息
 app.use(express.static("public"));
 
 // 棋盘状态（一个简单的示例棋盘，可以根据实际需求扩展）
-let boardState = Array(100).fill(null); // 示例：100格棋盘
+let boardState = Array(64).fill(null); // 示例：100格棋盘
 
 io.on("connection", (socket) => {
   console.log(`Client connected: ${socket.id}`);
@@ -58,7 +58,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log(`Client disconnected: ${socket.id}`);
     if (players[socket.id].role != "Spectator") {
-      boardState = Array(100).fill(null); 
+      boardState = Array(64).fill(null); 
       delete players[socket.id];
       let i = 0;
       for (const key in players) {

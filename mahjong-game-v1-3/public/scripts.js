@@ -93,7 +93,7 @@ function renderBoard(boardState) {
     const tileElement = document.createElement("div");
     tileElement.className = "tile";
     tileElement.dataset.index = index;
-    if (index < 50) {
+    if (index < 32) {
       tileElement.style.backgroundColor = "Pink";
     } else {
       tileElement.style.backgroundColor = "LightBlue";
@@ -163,7 +163,7 @@ function handleDrop(event) {
   const index = parseInt(event.target.dataset.index);
 
   if (tile && !event.target.textContent && playerInfo.role != "Spectator") {
-    if (index < 50 && playerInfo.role == "Player_2") {
+    if (index < 32 && playerInfo.role == "Player_2") {
 
       // 本地更新
       updateTileByRole(index, tile, playerInfo.role);
@@ -174,7 +174,7 @@ function handleDrop(event) {
       // 通知服务器
       socket.emit("moveTile", { index, tile, playerRole: playerInfo.role });
     }
-    if (index >= 50 && playerInfo.role == "Player_1") {
+    if (index >= 32 && playerInfo.role == "Player_1") {
       //随机播放SFX
       const randomIndex = Math.floor(Math.random() * sounds.length);
       const selectedSound = sounds[randomIndex];
