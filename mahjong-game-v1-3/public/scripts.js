@@ -7,7 +7,11 @@ const sounds = [];
 const volumeSlider = document.getElementById('volumeSlider');
 
 const playButton = document.getElementById('playButton');
+const pauseButton = document.getElementById('pauseButton');
+const refButton = document.getElementById('ReferenceButton')
 let isMusicPlaying = false; //add var去记录音乐是否正在播放.
+let ReferenceisHidden = false;
+let Reference = document.getElementById('overlay');
 
 //给滑动条增加事件, 适时调整音量
 volumeSlider.addEventListener('input', () => {
@@ -15,6 +19,19 @@ volumeSlider.addEventListener('input', () => {
   audio.volume = volume; // 设置背景音乐的音量
 });
 
+refButton.addEventListener('click',()=>{
+  if (ReferenceisHidden) {
+    
+    ReferenceisHidden = false; //标记已经打开reference
+    refButton.textContent = "Close Reference";//替换按钮文本
+    Reference.style.display = 'flex';
+  } else {
+   ReferenceisHidden = true;
+   refButton.textContent = "Open Reference";//替换按钮文本
+   Reference.style.display = 'none';
+  }
+
+})
 
 let playerInfo = null; // 存储当前玩家信息
 
@@ -51,9 +68,23 @@ playButton.addEventListener('click', () => {
     audio.play();
     isMusicPlaying = true; //标记已经开始播放音乐
     playButton.textContent = "Next Song";//替换按钮文本
+    pauseButton.textContent = "Pause";
   } else {
     playRandomMusic();
     audio.play();
+    pauseButton.textContent = "Pause";
+  }
+})
+
+pauseButton.addEventListener('click',()=>{
+  if(!isMusicPlaying){
+    audio.play();
+    isMusicPlaying = true;
+    pauseButton.textContent = "Pause";
+  }else{
+    audio.pause()
+    isMusicPlaying = false;
+    pauseButton.textContent = "Play";
   }
 })
 
