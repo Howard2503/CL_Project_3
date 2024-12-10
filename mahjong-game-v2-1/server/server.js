@@ -58,17 +58,19 @@ io.on("connection", (socket) => {
 
     if (players[socket.id].role !== "Spectator") {
       // 重置棋盘状态
-      boardState = Array(100).fill(null);
-    }
-    delete players[socket.id];
+      boardState = Array(64).fill(null);
+      delete players[socket.id];
 
-    // 重新分配玩家角色
-    let i = 0;
-    for (const key in players) {
-      if (i === 0) players[key].role = "Player_1";
-      if (i === 1) players[key].role = "Player_2";
-      io.to(players[key].id).emit("initBoard", { boardState, playerInfo: players[key] });
-      i++;
+      // 重新分配玩家角色
+      let i = 0;
+      for (const key in players) {
+        if (i === 0) players[key].role = "Player_1";
+        if (i === 1) players[key].role = "Player_2";
+        io.to(players[key].id).emit("initBoard", { boardState, playerInfo: players[key] });
+        i++;
+      }
+    } else {
+      delete players[socket.id];
     }
   });
 });

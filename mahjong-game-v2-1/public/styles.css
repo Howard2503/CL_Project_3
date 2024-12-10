@@ -92,6 +92,12 @@ h4 {
   margin: 0 auto; /* Centers the element horizontally within its parent */
 }
 
+h5{
+  max-width: 80%; /* Allows the text to take up a reasonable portion of the available width */
+  margin: 0 auto; /* Centers the element horizontally within its parent */
+  /* background-color: #f9f9f9; */
+  color: #ff0000;
+}
 
 #mahjong-tiles {
   display: flex;

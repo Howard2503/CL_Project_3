@@ -155,12 +155,12 @@ function draw() {
     }
   } else {
     for (let piece of playerOnePieces) {
-      if (playerInfo.role == "Player_1") {
+      if (playerInfo.role == "Player_1" || playerInfo.role == "Spectator") {
         piece.display();               // 绘制棋子
       }
     }
     for (let piece of playerTwoPieces) {
-      if (playerInfo.role == "Player_2") {
+      if (playerInfo.role == "Player_2" || playerInfo.role == "Spectator") {
         piece.display();               // 绘制棋子
       }
     }
