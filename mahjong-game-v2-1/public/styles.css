@@ -4,16 +4,19 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f0f0f0;
+  background-color: beige;
+  background-image: url(decor/background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
+
+
 
 .Game {
   display: block;
-  height: 100%;
-  width: 100%;
-  padding: 30px;
+  width:90%;
+  padding: 2vh;
 }
 
 .MainGame {
@@ -21,7 +24,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100%;
   width: 100%;
 }
@@ -46,21 +49,23 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  top: 100px;
-  width: 200px;
-  padding: 50px;
-  right: 300px;
+  top: 10vh;
+  width: 30%;
+  padding: 5vw;
+  margin-right:30%;
+  /* right: 350px; */
 }
 
 .rightIns {
   position: relative;
   display: flex;
   flex-direction: column;
-  left: 200px;
+  right:150px;
+  top:10vh;
+  width:30%;
 }
 
 .rightInstag {
-  top: 100px;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -68,13 +73,13 @@ body {
 }
 
 #rightInstag2 {
-  top: 140px;
+  top: 100px;
 }
 
 #pattern {
   position: relative;
   top: 250px;
-  left: 210px;
+  left: 50px;
 }
 
 .inst2 {
@@ -83,7 +88,8 @@ body {
 
 h3,
 h4 {
-  width: 200px;
+  max-width: 80%; /* Allows the text to take up a reasonable portion of the available width */
+  margin: 0 auto; /* Centers the element horizontally within its parent */
 }
 
 
@@ -95,8 +101,8 @@ h4 {
 
 #game-board {
   display: grid;
-  grid-template-columns: repeat(10, 50px);
-  grid-gap: 10px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 1vw;
 }
 
 #player-role {
