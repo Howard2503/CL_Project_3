@@ -481,7 +481,7 @@ class Piece {
     fill(this.type === 'Player_1' ? 'rgba(173, 216, 230, 0.1)' : 'rgba(255, 192, 203, 0.1)');
     ellipse(this.x, this.y, 2 * this.attackRange, 2 * this.attackRange);
     if (images[this.tile.tile]) {
-      image(images[this.tile.tile], this.x - tileSize / 2 + 10, this.y - tileSize / 2 + 10, tileSize - 20, tileSize - 20);
+      image(images[this.tile.tile], this.x - tileSize / 2 + 10, this.y - tileSize / 2 + 10, tileSize - 20, tileSize - 10);
     } else {
       console.warn(`Image for ${this.tile.tile} not loaded.`);
     }
