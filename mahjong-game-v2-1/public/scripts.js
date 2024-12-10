@@ -1,5 +1,38 @@
 const socket = io();
 
+const audio = document.getElementById('bgMusic');
+const musicFiles = ['music/song_1.mp3', 'music/song_2.mp3', 'music/song_3.mp3']
+const soundFiles = ['SFX/SFX_Drag1.wav', 'SFX/SFX_Drag2.mp3']
+const sounds = [];
+const volumeSlider = document.getElementById('volumeSlider');
+
+const playButton = document.getElementById('playButton');
+const pauseButton = document.getElementById('pauseButton');
+const refButton = document.getElementById('ReferenceButton')
+let isMusicPlaying = false; //add var去记录音乐是否正在播放.
+let ReferenceisHidden = false;
+let Reference = document.getElementById('overlay');
+
+//给滑动条增加事件, 适时调整音量
+volumeSlider.addEventListener('input', () => {
+  const volume = volumeSlider.value; // 获取滑动条当前的值，即音量大小
+  audio.volume = volume; // 设置背景音乐的音量
+});
+
+refButton.addEventListener('click', () => {
+  if (ReferenceisHidden) {
+
+    ReferenceisHidden = false; //标记已经打开reference
+    refButton.textContent = "Close Reference";//替换按钮文本
+    Reference.style.display = 'flex';
+  } else {
+    ReferenceisHidden = true;
+    refButton.textContent = "Open Reference";//替换按钮文本
+    Reference.style.display = 'none';
+  }
+
+})
+
 let playerOnePieces = [];
 let playerTwoPieces = [];
 let playerInfo = null; // 当前玩家信息
@@ -18,7 +51,7 @@ let mahjongDeck = ["1_tiao", "1_tong", "1_wan",
   "6_tiao", "6_tong", "6_wan",
   "7_tiao", "7_tong", "7_wan",
   "8_tiao", "8_tong", "8_wan",
-  "9_tiao", "9_tong", "9_wan","1_tiao", "1_tong", "1_wan",
+  "9_tiao", "9_tong", "9_wan", "1_tiao", "1_tong", "1_wan",
   "2_tiao", "2_tong", "2_wan",
   "3_tiao", "3_tong", "3_wan",
   "4_tiao", "4_tong", "4_wan",
@@ -26,7 +59,7 @@ let mahjongDeck = ["1_tiao", "1_tong", "1_wan",
   "6_tiao", "6_tong", "6_wan",
   "7_tiao", "7_tong", "7_wan",
   "8_tiao", "8_tong", "8_wan",
-  "9_tiao", "9_tong", "9_wan","1_tiao", "1_tong", "1_wan",
+  "9_tiao", "9_tong", "9_wan", "1_tiao", "1_tong", "1_wan",
   "2_tiao", "2_tong", "2_wan",
   "3_tiao", "3_tong", "3_wan",
   "4_tiao", "4_tong", "4_wan",
@@ -34,7 +67,7 @@ let mahjongDeck = ["1_tiao", "1_tong", "1_wan",
   "6_tiao", "6_tong", "6_wan",
   "7_tiao", "7_tong", "7_wan",
   "8_tiao", "8_tong", "8_wan",
-  "9_tiao", "9_tong", "9_wan","1_tiao", "1_tong", "1_wan",
+  "9_tiao", "9_tong", "9_wan", "1_tiao", "1_tong", "1_wan",
   "2_tiao", "2_tong", "2_wan",
   "3_tiao", "3_tong", "3_wan",
   "4_tiao", "4_tong", "4_wan",
@@ -51,7 +84,7 @@ let mahjongDeckBackup = ["1_tiao", "1_tong", "1_wan",
   "6_tiao", "6_tong", "6_wan",
   "7_tiao", "7_tong", "7_wan",
   "8_tiao", "8_tong", "8_wan",
-  "9_tiao", "9_tong", "9_wan","1_tiao", "1_tong", "1_wan",
+  "9_tiao", "9_tong", "9_wan", "1_tiao", "1_tong", "1_wan",
   "2_tiao", "2_tong", "2_wan",
   "3_tiao", "3_tong", "3_wan",
   "4_tiao", "4_tong", "4_wan",
@@ -59,7 +92,7 @@ let mahjongDeckBackup = ["1_tiao", "1_tong", "1_wan",
   "6_tiao", "6_tong", "6_wan",
   "7_tiao", "7_tong", "7_wan",
   "8_tiao", "8_tong", "8_wan",
-  "9_tiao", "9_tong", "9_wan","1_tiao", "1_tong", "1_wan",
+  "9_tiao", "9_tong", "9_wan", "1_tiao", "1_tong", "1_wan",
   "2_tiao", "2_tong", "2_wan",
   "3_tiao", "3_tong", "3_wan",
   "4_tiao", "4_tong", "4_wan",
@@ -67,7 +100,7 @@ let mahjongDeckBackup = ["1_tiao", "1_tong", "1_wan",
   "6_tiao", "6_tong", "6_wan",
   "7_tiao", "7_tong", "7_wan",
   "8_tiao", "8_tong", "8_wan",
-  "9_tiao", "9_tong", "9_wan","1_tiao", "1_tong", "1_wan",
+  "9_tiao", "9_tong", "9_wan", "1_tiao", "1_tong", "1_wan",
   "2_tiao", "2_tong", "2_wan",
   "3_tiao", "3_tong", "3_wan",
   "4_tiao", "4_tong", "4_wan",
@@ -88,6 +121,7 @@ function preload() {
 
 function setup() {
   createCanvas(canvasSize, canvasSize);
+  loadSounds();
 }
 
 function draw() {
@@ -110,11 +144,14 @@ function draw() {
       piece.attackTarget();          // 攻击目标
       piece.display();               // 绘制棋子
     }
-    if (playerOnePieces.length == 0) {
+    if (playerOnePieces.length == 0 && playerTwoPieces.length != 0) {
       console.log(`Player_2 wins!`);
     }
-    if (playerTwoPieces.length == 0) {
+    if (playerTwoPieces.length == 0 && playerOnePieces.length != 0) {
       console.log(`Player_1 wins!`);
+    }
+    if (playerTwoPieces.length == 0 && playerOnePieces.length == 0) {
+      console.log(`Draw!`);
     }
   } else {
     for (let piece of playerOnePieces) {
@@ -177,7 +214,6 @@ function displayPlayerRole(role) {
 function generateTile() {
   console.log(`mahjongDeck.length: ${mahjongDeck.length}`);
   let randomTileIndex = Math.floor(Math.random() * mahjongDeck.length);
-  // const tile = mahjongDeck[Math.floor(Math.random() * mahjongDeck.length)];
   const tile = mahjongDeck[randomTileIndex];
   console.log(`tile: ${tile}`);
   mahjongDeck.splice(randomTileIndex, 1);
@@ -199,14 +235,8 @@ socket.on("initBoard", ({ boardState: newBoardState, playerInfo: info }) => {
   if (mahjongDeck.length == 108) {
     generateTile(); // 生成初始麻将牌
   }
-  for (let i = 0; i < playerOnePieces.length; i++) {
-    playerOnePieces = playerOnePieces.filter(piece => piece.health <= 0);
-    console.log(`filtering playerOnePieces`);
-  }
-  for (let i = 0; i < playerTwoPieces.length; i++) {
-    playerTwoPieces = playerTwoPieces.filter(piece => piece.health <= 0);
-    console.log(`filtering playerTwoPieces`);
-  }
+  playerOnePieces = playerOnePieces.filter(piece => piece.health <= 0);
+  playerTwoPieces = playerTwoPieces.filter(piece => piece.health <= 0);
 
   gameReady = false;
 });
@@ -214,7 +244,6 @@ socket.on("initBoard", ({ boardState: newBoardState, playerInfo: info }) => {
 // 接收棋盘更新事件
 socket.on("updateBoard", ({ index, tile, playerRole }) => {
   boardState[index] = { tile, playerRole };
-  // redraw(); // 更新棋盘后重绘
 });
 
 socket.on("updateBoardNew", ({ col, row, tile, playerRole }) => {
@@ -224,6 +253,45 @@ socket.on("updateBoardNew", ({ col, row, tile, playerRole }) => {
     playerTwoPieces.push(new Piece(col * tileSize + tileSize / 2, row * tileSize + tileSize / 2, 'Player_2', tile));
   }
 });
+
+//播放背景音乐
+function playRandomMusic() {
+  const randomIndex = Math.floor(Math.random() * musicFiles.length);
+  audio.src = musicFiles[randomIndex];
+}
+
+playButton.addEventListener('click', () => {
+  if (!isMusicPlaying) {
+    playRandomMusic();
+    audio.play();
+    isMusicPlaying = true; //标记已经开始播放音乐
+    playButton.textContent = "Next Song";//替换按钮文本
+    pauseButton.textContent = "Pause";
+  } else {
+    playRandomMusic();
+    audio.play();
+    pauseButton.textContent = "Pause";
+  }
+})
+
+pauseButton.addEventListener('click', () => {
+  if (!isMusicPlaying) {
+    audio.play();
+    isMusicPlaying = true;
+    pauseButton.textContent = "Pause";
+  } else {
+    audio.pause()
+    isMusicPlaying = false;
+    pauseButton.textContent = "Play";
+  }
+})
+
+function loadSounds() {
+  soundFiles.forEach((file) => {
+    const audio = new Audio(file);
+    sounds.push(audio);
+  });
+}
 
 // 处理拖拽逻辑
 const tileElement = document.getElementById("current-tile");
@@ -272,6 +340,10 @@ function handleDrop(event) {
       socket.emit("moveTile", { index, tile, playerRole: playerInfo.role });
 
       socket.emit("moveTileNew", { col, row, tile: boardState[index], playerRole: playerInfo.role });
+
+      //播放SFX
+      const selectedSound = sounds[0];
+      selectedSound.play();
 
       // 生成新的麻将牌
       generateTile();
@@ -471,6 +543,10 @@ class Piece {
       let distToTarget = dist(this.x, this.y, this.target.x, this.target.y);
       if (distToTarget <= this.attackRange) { // 攻击距离
         this.target.health -= this.attack;
+      }
+      if (this.target.health <= 0) {
+        const selectedSound = sounds[1];
+        selectedSound.play();
       }
     }
   }

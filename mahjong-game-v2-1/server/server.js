@@ -11,17 +11,6 @@ const PORT = 3000;
 // 存储客户端的玩家信息
 const players = {};
 let boardState = Array(64).fill(null); // 棋盘状态
-let playerOnePieces = [];
-let playerTwoPieces = [];
-const mahjongDeck = ["1_tiao", "1_tong", "1_wan", 
-  "2_tiao", "2_tong", "2_wan", 
-  "3_tiao", "3_tong", "3_wan", 
-  "4_tiao", "4_tong", "4_wan", 
-  "5_tiao", "5_tong", "5_wan", 
-  "6_tiao", "6_tong", "6_wan", 
-  "7_tiao", "7_tong", "7_wan", 
-  "8_tiao", "8_tong", "8_wan", 
-  "9_tiao", "9_tong", "9_wan"]; // 牌库
 
 // 静态文件托管
 app.use(express.static("public"));
@@ -58,15 +47,6 @@ io.on("connection", (socket) => {
 
   socket.on("moveTileNew", (data) => {
     const { col, row, tile, playerRole } = data;
-
-    // 更新棋盘状态
-    // boardState[index] = { tile, playerRole };
-
-    // if (playerRole == "Player_1") {
-    //   playerOnePieces.push(new Piece(col * tileSize + tileSize / 2, row * tileSize + tileSize / 2, 'Player_1'));
-    // } else if (playerRole == "Player_2") {
-    //   playerTwoPieces.push(new Piece(col * tileSize + tileSize / 2, row * tileSize + tileSize / 2, 'Player_2'));
-    // }
 
     // 广播更新给所有客户端
     io.emit("updateBoardNew", { col, row, tile, playerRole });
