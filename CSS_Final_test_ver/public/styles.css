@@ -1,0 +1,114 @@
+body{
+    background-image: url("decor/background.png");
+    background-size:80%;
+    background-position-x: center;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+}
+
+.TUTORIALSEC{
+    font-family: Courier,monospace;
+    display: flex;
+    position:relative;
+    justify-content: center;
+    align-items: center;
+    top:100px;
+}
+
+.GuideButton{
+    background-color: #ffffff; 
+    border: 2px solid #04AA6D;
+    color: #04AA6D;
+    border-radius:8px;
+    width:50%;
+    height:50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.GuideButton:hover {
+    background-color: #04AA6D; /* Green */
+    color: white;
+  }
+
+#beginCard{
+    flex-direction: column;
+    align-items: center;
+}
+
+#Card1{
+    display:none;
+    flex-direction: column;
+    align-items: center;
+}
+
+#players{
+    display:inline-flex;
+    align-items: center;
+}
+
+.player_image{
+    padding:20px;
+
+}
+
+#Card2{
+    display:none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.Card2set{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width:20vw;
+}
+
+#tile_pool{
+    width:5vw;
+}
+#chess{
+    width:20vw;
+    padding-bottom:30px;
+}
+
+#Card3{
+    display:none;
+    flex-direction: column;
+    align-items: center;
+}
+
+#strategy{
+    display: inline-flex;
+    flex-direction:row;
+    align-items: center;
+}
+#hu_text{
+    width:300px;
+}
+
+#basic_rule{
+    width: 30vw;
+}
+
+.GameButton{
+    background-color: #ffffff; 
+    border: 2px solid #f7390e;
+    color: #fd750d;
+    border-radius:8px;
+    width:50%;
+    height:50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.GameButton:hover {
+    background-color: #f31c1c; /* Green */
+    color: white;
+  }
