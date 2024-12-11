@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahjong Auto Chess Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="overlay" id="overlay">
+    <div class="leftIns">
+      <img class="inst1" id="instPIC" src="instImage/Instruction.png" alt="instPIC">
+
+    </div>
+    <div class="rightIns">
+
+      <div class="rightInstag">
+        <img class="inst2" id="Arrow2" src="instImage/Arrow2.PNG" alt="Arrow2">
+        <h3 id="instPhrase1">There indicates which players are you and your color.</h3>
+      </div>
+      <div class="rightInstag" id="rightInstag2">
+        <img class="inst2" id="Arrow1" src="instImage/Arrow1.PNG" alt="Arrow1">
+        <h3 id="instPhrase2">Here you can drag your tiles on to your designated chessboard. After both players finish 14 tiles arrangement, game will automatically start.</h3>
+      </div>
+      <div id="pattern">
+        <h3>m*AAA+n*ABC +DD</h3>
+        <h4>Hu Pattern: The Ultimate Pattern which will help you win the game instantly.m or n could be ZERO.</h4>
+        <h5>Refresh the page to start a new game.</h5>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="Game">
+    <div class="audioSetting">
+      <div id="audioButton">
+        <audio id="bgMusic" loop></audio>
+        <button id="playButton">Click to play music</button>
+        <button id="pauseButton">Pause</button>
+      </div>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+      <button id="ReferenceButton">Click to close Reference</button>
+    </div>
+
+    <div class="MainGame">
+      <h1>Mahjong Auto Chess Game</h1>
+      <!-- 显示当前用户角色 -->
+      <div id="player-role">Your role: Loading...</div>
+
+      <!-- 用于放置麻将牌的区域 -->
+      <div id="mahjong-tiles" style="margin: 20px 0;">
+        <!-- 随机生成的麻将牌将在这里显示 -->
+        <div class="tile draggable" draggable="true" id="current-tile"
+          style="border: 1px solid black; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center;">
+          <!-- 初始内容，后续通过脚本动态更新 -->
+        </div>
+      </div>
+
+      <!-- p5.js 画布 -->
+      <div id="game-container">
+        <!-- p5.js 绘图区域会被插入到这里 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 引入必要的脚本 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="scripts.js"></script>
+</body>
+
+</html>
