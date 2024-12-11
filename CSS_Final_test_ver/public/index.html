@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahjong Auto Chess Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="TUTORIALSEC" id="beginCard">
+        <h1>Welcome to God of Mahjong</h1>
+        <h2>a Mahjong-theme auto-chess game.</h2>
+        <button class="GuideButton" id="guide1">click to continue</button>
+    </div>
+
+    <div class="TUTORIALSEC" id="Card1">
+        <h3 class="INSTRUCTION"id="player_text">The board will indicates your role and your party-color.</h3>
+        <div id="players">
+            <img class="player_image" src="instImage/player1.png" alt="player1">
+            <h4>or</h4>
+            <img class="player_image" src="instImage/player2.png" alt="player2">
+        </div>
+        <button class="GuideButton" id="guide2">click to continue</button>
+    </div>
+
+    <div class="TUTORIALSEC" id="Card2">
+        <div class="Card2set">
+            <h5 class="INSTRUCTION" id="tile_text1">A random tile will appear above your chessboard.</h5>
+            <h5 class="INSTRUCTION" id="tile_text2">You can drag your tiles on to your designated chessboard. </h5>
+            <h5 class="INSTRUCTION" id="tile_text3">There is no way to turn back while you arrange your tiles.</h5>
+            <h5 class="INSTRUCTION" id="tile_text4">After both players finish 14 tiles arrangement, game will automatically start.</h5>
+            <button class="GuideButton" id="guide3">click to continue</button>
+        </div>
+        <div class="Card2set">
+            <img id="tile_pool" src="instImage/1_tiao.png" alt="1_tiao">
+            <img id="chess" src="instImage/chess.jpg" alt="chess">
+        </div>
+        
+    </div>
+
+    <div class="TUTORIALSEC" id="Card3">    
+        <!-- <h3 class="INSTRUCTION" id="tile_text5">More strategies to help you win.</h3> -->
+        <button class="GameButton" id="readyButton">I am Ready.</button>
+        <div id="strategy">
+            <img class="INSTRUCTION" id="basic_rule" src="instImage/Instruction.png" alt="instPIC">
+            <div>
+                <h3 class="INSTRUCTION" id="pattern_text">m*AAA+n*ABC +DD</h3>
+                <h4 class="INSTRUCTION"id="hu_text">Hu Pattern: The Ultimate Pattern which will help you win the game instantly.m or n could be ZERO.</h4>
+            </div>
+        </div>
+       
+    </div>
+
+
+
+    <!-- 引入必要的脚本 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="scripts.js"></script>
+</body>
+
+</html>
